@@ -26,7 +26,7 @@ trait InputTraits{
   public function has($name, $type = INPUT_GET){
     return filter_has_var($type, $name);
   }
-  public function clean($string, $filter = FILTER_SANITIZE_STRING){
-    return filter_var($string, $filter);
+  public function clean($string, $filter = FILTER_SANITIZE_STRING, $options = false){
+    return filter_var($string, $filter, $options);
   }
 }
