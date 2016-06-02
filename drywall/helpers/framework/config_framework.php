@@ -20,6 +20,9 @@ trait ConfigFrameworkTraits{
   public function router($key = false){
     return $this->config('router', $key);
   }
+  public function session($key = false){
+    return $this->config('session', $key);
+  }
   protected function config($type, $key = false){
     if(!$this->has($type)){
       $config = $this->dw->file->configs($type, true);
@@ -42,4 +45,5 @@ trait ConfigFrameworkTraits{
 interface ConfigFrameworkInterface extends ConfigInterface{
   public function database($key);
   public function router($key);
+  public function session($key);
 }

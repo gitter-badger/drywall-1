@@ -25,5 +25,12 @@ class Session implements Traits\SessionFrameworkInterface{
   protected $dw;
   function __construct($dw){
     $this->dw =& $dw;
+    $this->configs();
+  }
+  public function configs(){
+    $configs = (array) $this->dw->config->session();
+    foreach($configs as $name => $value){
+      $this->$name = $value;
+    }
   }
 }

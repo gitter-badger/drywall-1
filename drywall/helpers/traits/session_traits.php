@@ -9,19 +9,19 @@ if(!defined('DRYWALL')){
 }
 
 interface SessionInterface{
-  public function new_session($session_name);
+  public function new_session($name, $time, $path, $domain, $secure, $http);
   public function get_session_id();
   public function regenerate_session();
-  public function destroy_session();
+  public function destroy_session($name);
 }
 
 trait SessionTraits{
+  private $config = array();
   private $started = false;
-  private $session_variables = array();
   private $session_id = null;
-  public function new_session($session_name = 'drywall'){
-    session_name($session_name);
-    session_set_cookie_params(60*30, '/', 'localhost', true, true);
+  public function new_session($name, $time, $path, $domain, $secure, $http){
+    session_name($name);
+    session_set_cookie_params($time, $path, $domain, $secure, $http);
     $this->started = (session_start()) ? true : false;
     if($this->started){
       $this->session_id = $this->get_session_id();
@@ -48,7 +48,9 @@ trait SessionTraits{
       return false;
     }
   }
-  public function destroy_session(){
+  public function destroy_session($name){
+    $params = session_get_cookie_params();
+    setcookie($name, '', time() - $params['lifetime'], $params['path'], $params['domain'], $params['secure'], $params['httponly']);
     $this->started = (session_destroy()) ? false : true;
     return $this->started;
   }

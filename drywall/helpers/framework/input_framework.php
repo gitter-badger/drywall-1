@@ -21,7 +21,11 @@ interface InputFrameworkInterface extends InputInterface{
   public function cookie($name, $filter, $options);
   public function server($name, $filter, $options);
   public function enviroment($name, $filter, $options);
-  public function set_cookie($name, $value, $time, $domain, $directory);
+  public function session($name, $filter, $options);
+  public function set_session($name, $value, $filter, $options);
+  public function unset_session($name);
+  public function set_cookie($name, $value, $time, $directory, $domain, $secure, $http);
+  public function unset_cookie($name, $value, $time, $directory, $domain, $secure, $http);
 }
 /**
  * File Framework Traits
@@ -59,10 +63,10 @@ trait InputFrameworkTraits{
     unset($_SESSION[$name]);
     return (isset($_SESSION[$name])) ? true : false;
   }
-  public function set_cookie($name, $value, $time = 60*30, $domain = 'localhost', $directory = '/'){
-    return setcookie($name, $value, time() + $time, $directory, $domain, true, true);
+  public function set_cookie($name, $value, $time, $directory, $domain, $secure, $http){
+    return setcookie($name, $value, time() + $time, $directory, $domain, $secure, $http);
   }
-  public function unset_cookie($name, $value = '', $time = 60*30, $domain = 'localhost', $directory = '/'){
-    return setcookie($name, '', time() - $time, $directory, $domain, true, true);
+  public function unset_cookie($name, $value, $time, $directory, $domain, $secure, $http){
+    return setcookie($name, $value, time() - $time, $directory, $domain, $secure, $http);
   }
 }

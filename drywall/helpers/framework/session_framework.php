@@ -27,8 +27,8 @@ trait SessionFrameworkTraits{
   use SessionTraits;
   private $variables = array();
   public function new(){
-    $session_id = $this->new_session('drywall');
-    if(!$this->dw->input->has('footprint', INPUT_COOKIE)){
+    $session_id = $this->new_session($this->name, $this->time, $this->path, $this->domain, $this->secure, $this->http);
+    if(!$this->dw->input->has($this->footprint_name, INPUT_COOKIE)){
       $this->footprint();
       $this->variable('LAST_ACTIVITY', time());
       return true;
@@ -38,7 +38,7 @@ trait SessionFrameworkTraits{
     }
   }
   public function check(){
-    $cookie = $this->dw->input->cookie('footprint');
+    $cookie = $this->dw->input->cookie($this->footprint_name);
     $expected_value = $this->footprint(true);
     $last_activity = $this->variable('LAST_ACTIVITY');
     $timeout = time() - $last_activity;
@@ -54,7 +54,7 @@ trait SessionFrameworkTraits{
     }
   }
   public function destroy(){
-    if($this->unset_variable() && $this->destroy_session() && $this->dw->input->unset_cookie('footprint')){
+    if($this->unset_variable() && $this->destroy_session($this->name) && $this->dw->input->unset_cookie($this->footprint_name, $value, $this->footprint_time, $this->footprint_path, $this->footprint_domain, $this->footprint_http, $this->footprint_secure)){
       return true;
     }
     else{
@@ -69,7 +69,7 @@ trait SessionFrameworkTraits{
     if($return !== false){
       return $value;
     }
-    elseif($this->dw->input->set_cookie('footprint', $value)){
+    elseif($this->dw->input->set_cookie($this->footprint_name, $value, $this->footprint_time, $this->footprint_path, $this->footprint_domain, $this->footprint_http, $this->footprint_secure)){
       return true;
     }
     else{
