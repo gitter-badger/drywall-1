@@ -38,7 +38,6 @@ trait SessionFrameworkTraits{
     $expected_value = $this->footprint(true);
     $last_activity = $this->session_variable('LAST_ACTIVITY');
     $timeout = time() - $last_activity;
-    echo $timeout;
     if(strcmp($cookie, $expected_value) === 0 && $timeout < 60*30){
       $this->session_variable('LAST_ACTIVITY', time());
       return true;
