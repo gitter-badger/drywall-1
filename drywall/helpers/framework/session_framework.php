@@ -18,6 +18,7 @@ interface SessionFrameworkInterface extends SessionInterface{
   public function destroy();
   public function footprint($return);
   public function variable($name, $value);
+  public function unset_variable($name);
 }
 /**
  * File Framework Traits
