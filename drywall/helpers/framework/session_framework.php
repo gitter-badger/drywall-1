@@ -16,17 +16,20 @@ interface SessionFrameworkInterface extends SessionInterface{
   public function new();
   public function check();
   public function destroy();
+  public function footprint($return);
+  public function variable($name, $value);
 }
 /**
  * File Framework Traits
  */
 trait SessionFrameworkTraits{
   use SessionTraits;
+  private $variables = array();
   public function new(){
     $session_id = $this->new_session('drywall');
     if(!$this->dw->input->has('footprint', INPUT_COOKIE)){
       $this->footprint();
-      $this->session_variable('LAST_ACTIVITY', time());
+      $this->variable('LAST_ACTIVITY', time());
       return true;
     }
     else{
@@ -36,21 +39,21 @@ trait SessionFrameworkTraits{
   public function check(){
     $cookie = $this->dw->input->cookie('footprint');
     $expected_value = $this->footprint(true);
-    $last_activity = $this->session_variable('LAST_ACTIVITY');
+    $last_activity = $this->variable('LAST_ACTIVITY');
     $timeout = time() - $last_activity;
     if(strcmp($cookie, $expected_value) === 0 && $timeout < 60*30){
-      $this->session_variable('LAST_ACTIVITY', time());
+      $this->variable('LAST_ACTIVITY', time());
       return true;
     }
     else{
       $this->regenerate_session();
-      $this->session_variable('LAST_ACTIVITY', time());
+      $this->variable('LAST_ACTIVITY', time());
       $this->footprint();
       return false;
     }
   }
   public function destroy(){
-    if($this->destroy_session() && $this->dw->input->unset_cookie('footprint')){
+    if($this->unset_variable() && $this->destroy_session() && $this->dw->input->unset_cookie('footprint')){
       return true;
     }
     else{
@@ -70,6 +73,28 @@ trait SessionFrameworkTraits{
     }
     else{
       return false;
+    }
+  }
+  public function variable($name, $value = null){
+    if($value !== null){
+      $this->variables[$name] = $value;
+      return ($this->dw->input->set_session($name, $value)) ? true : false;
+    }
+    else{
+      return $this->dw->input->session($name);
+    }
+  }
+  public function unset_variable($name = null){
+    if($name !== null){
+      unset($this->variables[$name]);
+      return (isset($this->variables[$name]) && $this->unset_session($name)) ? true : false;
+    }
+    else{
+      foreach($this->variables as $name => $value){
+        unset($this->variables[$name]);
+        $this->unset_session($name);
+      }
+      return empty($this->variables) ? true : false;
     }
   }
 }

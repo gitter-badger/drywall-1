@@ -51,6 +51,14 @@ trait InputFrameworkTraits{
       return false;
     }
   }
+  public function set_session($name, $value, $filter = DEFAULT_FILTER, $options = DEFAULT_OPTIONS){
+    $value = $this->clean($value, $filter, $options);
+    return ($_SESSION[$name] = $value) ? true : false;
+  }
+  public function unset_session($name){
+    unset($_SESSION[$name]);
+    return (isset($_SESSION[$name])) ? true : false;
+  }
   public function set_cookie($name, $value, $time = 60*30, $domain = 'localhost', $directory = '/'){
     return setcookie($name, $value, time() + $time, $directory, $domain, true, true);
   }

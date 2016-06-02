@@ -49,24 +49,7 @@ trait SessionTraits{
     }
   }
   public function destroy_session(){
-    $this->unset_session_variables();
     $this->started = (session_destroy()) ? false : true;
     return $this->started;
-  }
-  public function session_variable($name, $value = false){
-    if($value !== false){
-      $_SESSION[$name] = $value;
-      $this->session_variable[$this->session_id][$name] = $value;
-      return true;
-    }
-    else{
-      return $_SESSION[$name];
-    }
-  }
-  private function unset_session_variables(){
-    foreach($this->session_variables[$this->session_id] as $name => $value){
-      unset($_SESSION[$name]);
-    }
-    return true;
   }
 }
