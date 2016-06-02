@@ -12,7 +12,6 @@ interface ConfigInterface{
   public function get($type, $key);
   public function set($type, $key, $value);
   public function has($type, $key);
-  public function config($type, $key);
 }
 
 trait ConfigTraits{
