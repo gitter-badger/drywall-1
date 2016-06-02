@@ -58,21 +58,4 @@ trait ConfigTraits{
       return false;
     }
   }
-  public function config($type, $key = false){
-    if(!$this->has($type)){
-      $config = $this->dw->file->configs($type, true);
-      if(isset($config)){
-        $this->set($type, $config[$type]);
-      }
-    }
-    if($key !== false && $this->has($type, $key)){
-      return $this->get($type, $key);
-    }
-    elseif($key === false){
-      return (object) $this->get($type);
-    }
-    else{
-      return false;
-    }
-  }
 }
