@@ -14,6 +14,7 @@ interface FileInterface{
   public function has($type, $name);
   public function exists($type, $name);
   public function name($type, $name);
+  public function loaded();
 }
 /**
  * File Traits
