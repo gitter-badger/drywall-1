@@ -64,4 +64,7 @@ trait FileTraits{
       return ROOT.$type.DIR.$name.EXT;
     }
   }
+  public function loaded(){
+    return $this->loaded;
+  }
 }

@@ -17,7 +17,7 @@ if(!defined('DRYWALL')){
 }
 
 if(!class_exists('InputFrameworkTraits')){
-  include_once ROOT.'helpers'.DIR.'framework'.DIR.'input_framework'.EXT;
+  include_once ROOT.'helpers'.DIR.'frameworks'.DIR.'input_framework'.EXT;
 }
 
 class Input implements Traits\InputFrameworkInterface{

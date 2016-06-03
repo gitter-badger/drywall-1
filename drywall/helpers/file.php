@@ -17,7 +17,7 @@ if(!defined('DRYWALL')){
 }
 
 if(!class_exists('FileFrameworkTraits')){
-  include_once ROOT.'helpers'.DIR.'framework'.DIR.'file_framework'.EXT;
+  include_once ROOT.'helpers'.DIR.'frameworks'.DIR.'file_framework'.EXT;
 }
 
 class File implements Traits\FileFrameworkInterface{

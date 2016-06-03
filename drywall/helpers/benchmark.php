@@ -17,7 +17,7 @@ if(!defined('DRYWALL')){
 }
 
 if(!class_exists('BenchmarkFrameworkTraits')){
-  include_once ROOT.'helpers'.DIR.'framework'.DIR.'benchmark_framework'.EXT;
+  include_once ROOT.'helpers'.DIR.'frameworks'.DIR.'benchmark_framework'.EXT;
 }
 
 class Benchmark implements Traits\BenchmarkFrameworkInterface{

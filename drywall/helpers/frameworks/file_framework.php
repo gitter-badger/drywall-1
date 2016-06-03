@@ -17,7 +17,9 @@ interface FileFrameworkInterface extends FileInterface{
   public function controllers($names);
   public function helpers($names);
   public function models($names);
+  public function plugins($names);
   public function tests($names);
+  public function traits($names);
   public function views($names);
 }
 /**
@@ -31,17 +33,23 @@ trait FileFrameworkTraits{
   public function controllers($names){
     return $this->get('controllers', $names);
   }
+  public function frameworks($names){
+    return $this->get('helpers'.DIR.'frameworks', $names);
+  }
   public function helpers($names){
     return $this->get('helpers', $names);
   }
   public function models($names){
     return $this->get('models', $names);
   }
+  public function plugins($names){
+    return $this->get('helpers'.DIR.'plugins', $names);
+  }
   public function tests($names){
     return $this->get('tests', $names);
   }
-  public function traits($base, $names){
-    return $this->get('helpers'.$base, $names);
+  public function traits($names){
+    return $this->get('helpers'.DIR.'traits', $names);
   }
   public function views($names){
     return $this->get('views', $names);

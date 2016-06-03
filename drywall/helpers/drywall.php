@@ -22,8 +22,12 @@ class Drywall{
     mb_internal_encoding('UTF-8');
     include ROOT.'helpers'.DIR.'file'.EXT;
     $this->file = new File($this);
-    $this->file->helpers(array('config', 'benchmark', 'input', 'router', 'output', 'session'));
+    $this->file->helpers(array('config', 'benchmark', 'input', 'router', 'output', 'session', 'logger'));
+    $this->file->plugins('logger_file');
     $this->config = new Config($this);
+    $logger_plugin = new Plugins\LoggerFile;
+    $this->logger = new Logger($this, $logger_plugin);
+    $this->logger->set_handlers();
     $this->benchmark = new Benchmark($this);
     $this->benchmark->start($time, $memory);
     $this->input = new Input($this);
@@ -42,6 +46,7 @@ class Drywall{
     $this->router->route();
     $this->output->end_flush();
     $this->benchmark->end();
+    $this->logger->info('Total Time: '.$this->benchmark->total()->time.' Total Memory: '.$this->benchmark->total()->memory);
     $this->output->end();
   }
 }

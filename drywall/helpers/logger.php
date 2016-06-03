@@ -16,9 +16,15 @@ if(!defined('DRYWALL')){
   die('Error: Access Denied');
 }
 
-class Logger{
+if(!class_exists('LoggerFrameworkTraits')){
+  include_once ROOT.'helpers'.DIR.'frameworks'.DIR.'logger_framework'.EXT;
+}
+
+class Logger implements Traits\LoggerFrameworkInterface{
+  use Traits\LoggerFrameworkTraits;
   protected $dw;
-  function __construct($dw){
-    $this->dw = $dw;
+  function __construct($dw, $logger){
+    $this->dw =& $dw;
+    $this->logger =& $logger;
   }
 }
