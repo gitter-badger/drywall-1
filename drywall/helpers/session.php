@@ -17,7 +17,7 @@ if(!defined('DRYWALL')){
 }
 
 if(!class_exists('SessionFrameworkTraits')){
-  include_once ROOT.'helpers'.DIR.'framework'.DIR.'session_framework'.EXT;
+  include_once ROOT.'helpers'.DIR.'frameworks'.DIR.'session_framework'.EXT;
 }
 
 class Session implements Traits\SessionFrameworkInterface{

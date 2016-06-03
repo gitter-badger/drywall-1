@@ -17,7 +17,7 @@ if(!defined('DRYWALL')){
 }
 
 if(!class_exists('ConfigFrameworkTraits')){
-  include_once ROOT.'helpers'.DIR.'framework'.DIR.'config_framework'.EXT;
+  include_once ROOT.'helpers'.DIR.'frameworks'.DIR.'config_framework'.EXT;
 }
 
 class Config implements Traits\ConfigFrameworkInterface{

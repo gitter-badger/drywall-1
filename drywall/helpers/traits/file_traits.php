@@ -14,6 +14,7 @@ interface FileInterface{
   public function has($type, $name);
   public function exists($type, $name);
   public function name($type, $name);
+  public function loaded();
 }
 /**
  * File Traits
@@ -63,5 +64,8 @@ trait FileTraits{
     else {
       return ROOT.$type.DIR.$name.EXT;
     }
+  }
+  public function loaded(){
+    return $this->loaded;
   }
 }

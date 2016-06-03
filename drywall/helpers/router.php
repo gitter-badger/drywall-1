@@ -17,7 +17,7 @@ if(!defined('DRYWALL')){
 }
 
 if(!class_exists('RouterFrameworkTraits')){
-  include_once ROOT.'helpers'.DIR.'framework'.DIR.'router_framework'.EXT;
+  include_once ROOT.'helpers'.DIR.'frameworks'.DIR.'router_framework'.EXT;
 }
 
 class Router implements Traits\RouterFrameworkInterface{

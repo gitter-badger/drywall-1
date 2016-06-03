@@ -17,7 +17,7 @@ if(!defined('DRYWALL')){
 }
 
 if(!class_exists('OutputFrameworkTraits')){
-  include_once ROOT.'helpers'.DIR.'framework'.DIR.'output_framework'.EXT;
+  include_once ROOT.'helpers'.DIR.'frameworks'.DIR.'output_framework'.EXT;
 }
 
 class Output implements Traits\OutputFrameworkInterface{
